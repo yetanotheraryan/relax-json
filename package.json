@@ -1,0 +1,32 @@
+{
+  "name": "relax-json",
+  "version": "0.0.1",
+  "description": "A library for parsing and validating JSON with a relaxed schema",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yetanotheraryan/relax-json.git"
+  },
+  "keywords": [
+    "json",
+    "validation",
+    "schema",
+    "relaxed",
+    "json-schema"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yetanotheraryan/relax-json/issues"
+  },
+  "homepage": "https://github.com/yetanotheraryan/relax-json#readme",
+  "devDependencies": {
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  }
+}
