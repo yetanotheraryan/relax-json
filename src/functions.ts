@@ -1,8 +1,8 @@
-export function relaxjson(str: any): any {
+export function relaxjson(str: any, fallback?:any): any {
     try{
         if(typeof str !== 'string') {
             console.log("Input is not a string");
-            return null;
+            return fallback || null;
         }
     
         let json = JSON.parse(str);
@@ -10,6 +10,6 @@ export function relaxjson(str: any): any {
 
     }catch(error){
         console.log("Error parsing JSON: ", error);
-        return null;
+        return fallback || null;
     }
 }
