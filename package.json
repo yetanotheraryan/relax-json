@@ -17,10 +17,13 @@
     "validation",
     "schema",
     "relaxed",
-    "json-schema"
+    "json-schema", "json", 
+    "safe", 
+    "parse", 
+    "utility"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "Aryan Tiwari",
+"license": "MIT",
   "bugs": {
     "url": "https://github.com/yetanotheraryan/relax-json/issues"
   },
