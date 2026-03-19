@@ -1,7 +1,4 @@
-name: Publish NPM package\
-
-env:
-  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true 
+name: Publish NPM package
 
 on:
   push:
@@ -13,23 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Setup pnpm
-        run: npm install -g pnpm
-
-      - name: Install
-        run: pnpm install
+      - name: Install dependencies
+        run: npm install
 
       - name: Build
-        run: pnpm build
+        run: npm run build   # ✅ works with your package.json
 
       - name: Publish
         run: npm publish --access public --no-git-checks
