@@ -97,6 +97,7 @@ relaxjson('invalid json', {})
 ## 🛠️ Contributing
 
 PRs are welcome. If you have ideas to improve performance or edge-case handling, feel free to open an issue.
+Help with the CICD improvement will be appreciated.
 
 ---
 
