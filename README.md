@@ -25,18 +25,21 @@ npm install relax-json
 ## 🚀 Usage
 
 ```ts
-import { relaxjson } from "relax-json";
+import { json } from "relax-json";
 
 // valid JSON
-relaxjson('{"name": "Aryan"}')
+json.parse('{"name": "Aryan"}')
 // → { name: "Aryan" }
 
 // invalid JSON
-relaxjson('invalid json')
+json.parse('invalid json')
 // → null
 
-// with fallback
-relaxjson('invalid json', {})
+// with fallback + error callback
+json.parse('invalid json', {
+  fallback: {},
+  onError: (err) => console.log(err),
+});
 // → {}
 ```
 
@@ -44,17 +47,32 @@ relaxjson('invalid json', {})
 
 ## 🧠 API
 
-### `relaxjson(input, fallback?)`
+### `json.parse(input, { fallback?, onError? }?)`
 
 | Param    | Type   | Description                     |
 | -------- | ------ | ------------------------------- |
 | input    | string | JSON string to parse            |
 | fallback | any    | Value returned if parsing fails |
+| onError  | (err) => void | Called with the parse error before returning fallback |
 
 **Returns:**
 
 * Parsed JSON if valid
 * `fallback` or `null` if invalid
+
+---
+
+### Backward compatible: `relaxjson(input, fallback?)`
+
+Legacy wrapper kept for older code. Import `relaxjson` only if you need the old function style:
+
+```ts
+import { relaxjson } from "relax-json";
+
+relaxjson('invalid json', {});
+// → {}
+```
+
 
 ---
 
