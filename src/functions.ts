@@ -1,18 +1,41 @@
-export function relaxjson(str: any, fallback?:any): any {
-    try{
-        if(typeof str !== 'string') {
-            return fallback || null;
-        }
-    
-        let json = JSON.parse(str);
-        return json;
+function parse(
+    str: any,
+    optionsOrFallback?:
+        | { fallback?: any; onError?: (err: unknown) => void }
+        | any,
+): any {
+    let fallback: any = null;
+    let onError: ((err: unknown) => void) | undefined;
 
-    }catch(error){
-        return fallback || null;
+    // Support both:
+    // 1) parse(input, { fallback, onError })
+    // 2) parse(input, fallbackValue)
+    if (
+        optionsOrFallback &&
+        typeof optionsOrFallback === 'object' &&
+        (Object.prototype.hasOwnProperty.call(optionsOrFallback, 'fallback') ||
+            Object.prototype.hasOwnProperty.call(optionsOrFallback, 'onError'))
+    ) {
+        const options = optionsOrFallback as { fallback?: any; onError?: (err: unknown) => void };
+        fallback = options.fallback || null;
+        onError = options.onError;
+    } else {
+        fallback = optionsOrFallback || null;
+    }
+
+    try {
+        if (typeof str !== 'string') {
+            return fallback;
+        }
+
+        return JSON.parse(str);
+    } catch (error) {
+        onError?.(error);
+        return fallback;
     }
 }
 
-export function isValidJson(str: any): boolean {
+function isValidJson(str: any): boolean {
     try{
         if(typeof str !== 'string') {
             return false;
@@ -24,11 +47,24 @@ export function isValidJson(str: any): boolean {
     }
 }
 
-export function tryParse(str: any): [any, unknown | null] {
+function tryParse(str: any): [any, unknown | null] {
     try{
         let json = JSON.parse(str);
         return [json, null];
     }catch(error){
         return [null , error];
     }
+}
+
+// Small public API: only this is exported from the package.
+export const json = {
+    parse,
+    isValid: isValidJson,
+    tryParse,
+};
+
+// Backward compatible API: previously you could call `relaxjson(input, fallback?)`.
+// It delegates to `json.parse` (which also supports `{ fallback, onError }`).
+export function relaxjson(str: any, fallback?: any): any {
+    return parse(str, fallback);
 }
