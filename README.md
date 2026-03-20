@@ -1,6 +1,9 @@
 # relax-json
 
-> A safer `JSON.parse()` that never crashes your app.
+A safer `JSON.parse()` that never crashes your app.
+
+  ![NPM Version](https://img.shields.io/npm/v/relax-json)  ![NPM Downloads](https://img.shields.io/npm/dw/relax-json) ![GitHub package.json version](https://img.shields.io/github/package-json/v/yetanotheraryan/relax-json?style=flat-square&color=blue) ![GitHub last commit](https://img.shields.io/github/last-commit/yetanotheraryan/relax-json) ![GitHub contributors](https://img.shields.io/github/contributors/yetanotheraryan/relax-json) ![GitHub forks](https://img.shields.io/github/forks/yetanotheraryan/relax-json)
+ ![GitHub Repo stars](https://img.shields.io/github/stars/yetanotheraryan/relax-json) ![GitHub License](https://img.shields.io/github/license/yetanotheraryan/relax-json)
 
 ---
 
@@ -11,6 +14,7 @@
 One invalid input → 💥 runtime crash.
 
 `relax-json` gives you a **fault-tolerant parser** so your app keeps running, even with bad input.
+
 
 ---
 
