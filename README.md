@@ -80,6 +80,33 @@ relaxjson('invalid json', {});
 
 ---
 
+## 🤝 Why not just try/catch?
+
+You *can* write:
+
+```ts
+try {
+  JSON.parse(str);
+} catch {
+  return null;
+}
+```
+  
+But across a real codebase, you get:
+
+- inconsistent fallbacks  
+- duplicated logic  
+- no centralized error handling  
+
+relax-json gives you:
+
+- consistent behavior  
+- cleaner code  
+- extensibility  
+
+---
+
+
 ## ⚡ Features
 
 * 🛡️ **Never throws** — safe by default
