@@ -1,2 +1,1 @@
-export * from './functions';
-export * from './operations';
+export { json, relaxjson } from './functions';
