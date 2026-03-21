@@ -107,6 +107,77 @@ relax-json gives you:
 ---
 
 
+## 🔧 `repair()` — Fix Dirty JSON Before Parsing
+
+`repair` helps you clean up malformed JSON strings by applying a series of safe transformations.
+
+It is especially useful when dealing with:
+
+* Logs
+* LLM outputs
+* User-generated input
+* APIs returning slightly invalid JSON
+
+---
+
+### ✨ What it fixes
+
+* Removes comments (`//` and `/* */`)
+* Converts single quotes → double quotes
+* Adds quotes to unquoted keys
+* Removes trailing commas
+* Fixes simple missing commas
+
+---
+
+### 🚀 Usage
+
+```ts
+import { json } from "relax-json";
+
+const dirty = `
+{
+  name: 'Aryan',
+  age: 24,
+  skills: ['ts', 'node',],
+}
+`;
+
+const fixed = json.repair(dirty); // repair return a string with fixed json.
+
+console.log(fixed);
+/*
+`{
+  "name": "Aryan",
+  "age": 24,
+  "skills": ["ts", "node"]
+}`
+*/
+```
+
+---
+
+### ⚠️ Notes
+
+* `repair` does **best-effort fixes**, not guaranteed recovery for severely broken JSON
+* Always validate or safely parse after repairing:
+
+```ts
+const result = json.parse(json.repair(dirty));
+```
+
+---
+
+### 💡 Pro Tip
+
+Combine `repair` + `parse` for maximum safety:
+
+```ts
+const data = json.parse(json.repair(dirty), { fallback: {} });
+```
+---
+
+
 ## ⚡ Features
 
 * 🛡️ **Never throws** — safe by default

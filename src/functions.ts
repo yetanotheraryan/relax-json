@@ -1,3 +1,5 @@
+import { fixMissingCommas, fixQuotes, quoteKeys, removeComments, removeTrailingCommas } from "./operations";
+
 function parse(
     str: any,
     optionsOrFallback?:
@@ -36,31 +38,49 @@ function parse(
 }
 
 function isValidJson(str: any): boolean {
-    try{
-        if(typeof str !== 'string') {
+    try {
+        if (typeof str !== 'string') {
             return false;
         }
         let json = JSON.parse(str);
         return true;
-    }catch(error){
+    } catch (error) {
         return false;
     }
 }
 
 function tryParse(str: any): [any, unknown | null] {
-    try{
+    try {
         let json = JSON.parse(str);
         return [json, null];
-    }catch(error){
-        return [null , error];
+    } catch (error) {
+        return [null, error];
     }
 }
+
+
+const repair = (str: any): string | null => {
+    try {
+        let input = str;
+
+        input = removeComments(input)
+        input = fixQuotes(input)
+        input = quoteKeys(input)
+        input = removeTrailingCommas(input)
+        input = fixMissingCommas(input)
+        return input;
+    } catch (error) {
+        return null;
+    }
+}
+
 
 // Small public API: only this is exported from the package.
 export const json = {
     parse,
     isValid: isValidJson,
     tryParse,
+    repair
 };
 
 // Backward compatible API: previously you could call `relaxjson(input, fallback?)`.
