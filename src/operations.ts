@@ -51,3 +51,17 @@ export function removeTrailingCommas(str: string): string {
 export function fixMissingCommas(str: string): string {
   return str.replace(/("|\d|\}|\])\s+("|\{|\[)/g, '$1,$2')
 }
+
+export function fixUnquotedValues(str: string): string {
+  return str.replace(
+    /:\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*(?=[,}\]])/g,
+    (_, value) => {
+      // don't touch valid literals
+      if (["true", "false", "null"].includes(value)) {
+        return `: ${value}`;
+      }
+
+      return `: "${value}"`;
+    }
+  );
+}
