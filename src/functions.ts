@@ -1,4 +1,4 @@
-import { fixMissingCommas, fixQuotes, quoteKeys, removeComments, removeTrailingCommas } from "./operations";
+import { fixMissingCommas, fixQuotes, quoteKeys, removeComments, removeTrailingCommas, fixUnquotedValues } from "./operations";
 
 function parse(
     str: any,
@@ -66,6 +66,7 @@ const repair = (str: any): string | null => {
         input = removeComments(input)
         input = fixQuotes(input)
         input = quoteKeys(input)
+        input = fixUnquotedValues(input);
         input = removeTrailingCommas(input)
         input = fixMissingCommas(input)
         return input;
