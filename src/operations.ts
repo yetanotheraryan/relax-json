@@ -26,3 +26,28 @@ export function jsonEquals(a: any, b: any): boolean {
         return false;
     }
 }
+
+export function removeComments(str: string): string {
+  return str
+    .replace(/\/\/.*$/gm, '')
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+}
+
+
+export function fixQuotes(str: string): string {
+  return str.replace(/'([^']*)'/g, (_, content) => {
+    return `"${content.replace(/"/g, '\\"')}"`
+  })
+}
+
+export function quoteKeys(str: string): string {
+  return str.replace(/([{,]\s*)([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+}
+
+export function removeTrailingCommas(str: string): string {
+  return str.replace(/,\s*([}\]])/g, '$1')
+}
+
+export function fixMissingCommas(str: string): string {
+  return str.replace(/("|\d|\}|\])\s+("|\{|\[)/g, '$1,$2')
+}
